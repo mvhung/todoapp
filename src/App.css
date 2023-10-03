@@ -40,19 +40,36 @@
 .container {
     width: 500px;
     margin: 0 auto;
+    padding: 12px;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
 }
 .input-container {
     display: flex;
-    height: 50px;
+    height: 30px;
     justify-content: space-between;
     align-items: center;
+    margin-bottom: 12px;
 }
 .new-task {
     flex: 1;
+    height: 100%;
 }
 .new-task input[type='text'] {
-    height: 80%;
-    width: 90%;
+    height: 88%;
+    width: 92%;
+    padding-left: 26px;
+    border-radius: 6px;
+
+    border: 1px solid;
+    /* border-radius: 3px; */
+}
+.new-task input[type='text']:focus {
+    outline: none;
+    border-radius: 6px;
+    box-shadow: 0 0 0 1px rgba(0, 123, 255, 0.5);
+}
+.add-btn {
+    height: 100%;
 }
 .list-tasks {
 }
@@ -62,17 +79,79 @@
     align-items: center;
 
     height: 50px;
-    border: 1px solid #dcdcdc;
-    padding: 4px 16px;
+    /* border-bottom: 1px solid #dcdcdc; */
+    border-top: 2px solid #dcdcdc;
+    padding: 4px 0px;
 }
 
 .todo-item:hover {
-    background-color: #c0c0c0;
+    /* background-color: #c0c0c0; */
+}
+.todo-item .task {
+    border: none;
+    outline: none;
+}
+.todo-item .task:focus {
+    border: 1px solid #ccc;
+    outline: none;
+    outline: none;
+    border-radius: 6px;
+    box-shadow: 0 0 0 1px rgba(0, 123, 255, 0.5);
 }
 
 .todo-content {
-    margin-left: 12px;
+    position: relative;
+    display: flex;
+    flex: 1;
+}
+
+.todo-content input[type='text'] {
+    height: 36px;
+    width: 100%;
+}
+
+.todo-content input[type='checkbox'] {
+    margin-right: 12px;
+}
+
+.todo-content .task {
+    width: 100%;
+}
+
+.edit-btn {
+    position: absolute;
+    right: 5%;
+    top: 12%;
+}
+.edit-btn,
+.add-btn {
+    background-color: #20b2aa;
+    border: none;
+    border-radius: 3px;
+    color: #fff;
+    outline: none;
+    /* height: 20px; */
+    width: fit-content;
+    font-size: 16px;
+    padding: 6px 10px;
+    /* position: absolute; */
+    /* right: 0; */
+}
+.todo-content {
+    padding-right: 24px;
 }
 .todo-btn:hover {
     cursor: pointer;
+}
+
+.delete-btn button {
+    background-color: #fe0000;
+    border: none;
+    border-radius: 3px;
+    color: #fff;
+    outline: none;
+    /* height: 20px; */
+    width: fit-content;
+    font-size: 16px;
+    padding: 8px 10px;
 }

@@ -36,7 +36,7 @@ const reducer = (state, action) => {
         case 'EDIT':
             return state.map((todo) => {
                 if (action.id === todo.id) {
-                    let newTodo = action.newTask;
+                    let newTodo = { ...todo, task: action.newTask };
                     // console.log(newTodo ,action.status)
                     return newTodo;
                 } else {
@@ -69,13 +69,9 @@ function TodoApp() {
         return dispatch({ type: 'ADD_TASK', newTask: { id: todos.length + 1, task: newTask, status: newTaskStatus } });
     };
 
-    const handleEdit = (todo) => {
-        setEditMode(true);
-        setTaskId(todo.id);
-        setNewTask(todo.task);
-        setNewTaskStatus(todo.status);
-        console.log(todo);
-        input.current.focus();
+    const handleEdit = (id, newTask) => {
+        console.log(id, newTask);
+        return dispatch({ type: 'EDIT', id: id, newTask: newTask });
     };
 
     const submitEdit = () => {
@@ -87,15 +83,16 @@ function TodoApp() {
     };
     return (
         <div className="container">
+            <h1>My Todos</h1>
             <div className="input-container">
                 <div className="new-task">
-                    <input
+                    {/* <input
                         type="checkbox"
                         checked={newTaskStatus}
                         onChange={() => {
                             return setNewTaskStatus(!newTaskStatus);
                         }}
-                    />
+                    /> */}
                     <input
                         placeholder="add your task"
                         ref={input}
@@ -104,16 +101,19 @@ function TodoApp() {
                         onChange={(e) => setNewTask(e.target.value)}
                     />
                 </div>
-                <button onClick={editMode ? submitEdit : handleAdd}>{editMode ? 'EDIT' : 'ADD'}</button>
+                <button className="add-btn" onClick={editMode ? submitEdit : handleAdd}>
+                    {editMode ? 'EDIT' : 'Save'}
+                </button>
             </div>
             <div className="list-tasks">
                 {todos.map((todo) => (
                     <TodoItem
                         key={todo.id}
+                        id={todo.id}
                         status={todo.status}
                         onChangeStatus={() => handleChangeStatus(todo)}
                         onDelete={() => handleDelete(todo)}
-                        onEdit={() => handleEdit(todo)}
+                        onEdit={handleEdit}
                     >
                         {todo.task}
                     </TodoItem>
