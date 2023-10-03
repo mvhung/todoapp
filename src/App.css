@@ -71,8 +71,7 @@
 .add-btn {
     height: 100%;
 }
-.list-tasks {
-}
+
 .todo-item {
     display: flex;
     justify-content: space-between;
@@ -84,9 +83,6 @@
     padding: 4px 0px;
 }
 
-.todo-item:hover {
-    /* background-color: #c0c0c0; */
-}
 .todo-item .task {
     border: none;
     outline: none;

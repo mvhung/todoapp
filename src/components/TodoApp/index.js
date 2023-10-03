@@ -49,8 +49,8 @@ const reducer = (state, action) => {
 };
 function TodoApp() {
     const [newTask, setNewTask] = useState('');
+    // eslint-disable-next-line no-unused-vars
     const [newTaskStatus, setNewTaskStatus] = useState(false);
-    const [taskId, setTaskId] = useState();
     const [editMode, setEditMode] = useState(false);
 
     const [todos, dispatch] = useReducer(reducer, initTodo);
@@ -75,11 +75,11 @@ function TodoApp() {
     };
 
     const submitEdit = () => {
-        console.log({ id: todos.length + 1, task: newTask, status: newTaskStatus });
+        // console.log({ id: todos.length + 1, task: newTask, status: newTaskStatus });
         setEditMode(false);
-        setNewTask('');
-        setNewTaskStatus(false);
-        return dispatch({ type: 'EDIT', id: taskId, newTask: { id: taskId, task: newTask, status: newTaskStatus } });
+        // setNewTask('');
+        // setNewTaskStatus(false);
+        // return dispatch({ type: 'EDIT', id: taskId, newTask: { id: taskId, task: newTask, status: newTaskStatus } });
     };
     return (
         <div className="container">
