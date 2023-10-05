@@ -60,6 +60,7 @@ function TodoApp() {
     // eslint-disable-next-line no-unused-vars
     const [newTaskStatus, setNewTaskStatus] = useState(false);
     const [editMode, setEditMode] = useState(false);
+    const [nullTask, setNullTask] = useState(false);
 
     const [todos, dispatch] = useReducer(reducer, initTodo);
     const input = useRef(null);
@@ -80,10 +81,15 @@ function TodoApp() {
 
     const handleAdd = () => {
         if (!newTask) {
+            setNullTask(true);
             return;
         }
+        setNullTask(false);
+        let Task = { id: todos.length + 1, task: newTask, status: newTaskStatus };
+        setNewTask('');
+
         // console.log({ id: todos.length + 1, task: newTask, status: newTaskStatus });
-        return dispatch({ type: 'ADD_TASK', newTask: { id: todos.length + 1, task: newTask, status: newTaskStatus } });
+        return dispatch({ type: 'ADD_TASK', newTask: Task });
     };
 
     const handleEdit = (id, newTask) => {
@@ -111,11 +117,15 @@ function TodoApp() {
                         }}
                     /> */}
                     <input
-                        placeholder="add your task"
+                        className={nullTask ? 'errorInput' : ''}
+                        placeholder={nullTask ? 'cant be null at this field' : 'add your tasks'}
                         ref={input}
                         type="text"
                         value={newTask}
-                        onChange={(e) => setNewTask(e.target.value)}
+                        onChange={(e) => {
+                            setNullTask(false);
+                            setNewTask(e.target.value);
+                        }}
                     />
                 </div>
                 <button className="add-btn" onClick={editMode ? submitEdit : handleAdd}>

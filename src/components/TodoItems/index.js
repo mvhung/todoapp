@@ -23,10 +23,12 @@ function TodoItem({ id, status, onChangeStatus, onEdit, onDelete, children }) {
     };
 
     const handleEdit = (id) => {
-        console.log(inputWrapperRef);
-        inputWrapperRef.current.blur();
-        setEdit(false);
-        onEdit(id, inputRef.current.value);
+        if (inputRef.current.value) {
+            inputWrapperRef.current.blur();
+            setEdit(false);
+            onEdit(id, inputRef.current.value);
+        }
+        alert('you cant change a task to null');
     };
     return (
         <div className="todo-item">

@@ -68,6 +68,13 @@
     border-radius: 6px;
     box-shadow: 0 0 0 1px rgba(0, 123, 255, 0.5);
 }
+
+.errorInput {
+    border: 1px solid #fe0000 !important;
+    color: #fe0000 !important;
+    position: relative;
+}
+
 .add-btn {
     height: 100%;
 }
