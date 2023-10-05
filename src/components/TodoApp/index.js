@@ -1,7 +1,6 @@
 import { useReducer, useRef, useState } from 'react';
 import TodoItem from '../TodoItems';
-
-const initTodo = [
+const initTodo = JSON.parse(localStorage.getItem('todotask')) || [
     {
         id: 1,
         task: 'quet nha',
@@ -13,12 +12,16 @@ const initTodo = [
         status: true,
     },
 ];
-
+const saveSate = (state) => {
+    localStorage.setItem('todotask', JSON.stringify(state));
+};
 const reducer = (state, action) => {
     switch (action.type) {
         case 'ADD_TASK':
             if (action.newTask) {
-                return [...state, action.newTask];
+                let newState = [...state, action.newTask];
+                saveSate(newState);
+                return newState;
             }
             return;
         case 'CHANGE_STATUS':
@@ -26,15 +29,18 @@ const reducer = (state, action) => {
                 if (action.id === todo.id) {
                     let newState = { ...todo, status: !todo.status };
                     // console.log(newState ,action.status)
+                    saveSate(newState);
                     return newState;
                 } else {
                     return todo;
                 }
             });
         case 'DELETE':
-            return state.filter((todo) => todo.id !== action.id);
+            let delState = state.filter((todo) => todo.id !== action.id);
+            saveSate(delState);
+            return delState;
         case 'EDIT':
-            return state.map((todo) => {
+            let editState = state.map((todo) => {
                 if (action.id === todo.id) {
                     let newTodo = { ...todo, task: action.newTask };
                     // console.log(newTodo ,action.status)
@@ -43,6 +49,8 @@ const reducer = (state, action) => {
                     return todo;
                 }
             });
+            saveSate(editState);
+            return editState;
         default:
             return;
     }
@@ -61,11 +69,20 @@ function TodoApp() {
     };
 
     const handleDelete = (todo) => {
-        return dispatch({ type: 'DELETE', id: todo.id });
+        let text = 'do you want to delete this task?';
+        // eslint-disable-next-line no-restricted-globals
+        if (confirm(text) === true) {
+            return dispatch({ type: 'DELETE', id: todo.id });
+        } else {
+            return;
+        }
     };
 
     const handleAdd = () => {
-        console.log({ id: todos.length + 1, task: newTask, status: newTaskStatus });
+        if (!newTask) {
+            return;
+        }
+        // console.log({ id: todos.length + 1, task: newTask, status: newTaskStatus });
         return dispatch({ type: 'ADD_TASK', newTask: { id: todos.length + 1, task: newTask, status: newTaskStatus } });
     };
 

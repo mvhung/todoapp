@@ -1,4 +1,5 @@
 import { useRef, useState } from 'react';
+import { uppercaseFirstLetter } from '../../utils';
 
 function TodoItem({ id, status, onChangeStatus, onEdit, onDelete, children }) {
     const [edit, setEdit] = useState(false);
@@ -36,7 +37,7 @@ function TodoItem({ id, status, onChangeStatus, onEdit, onDelete, children }) {
                         className="task"
                         ref={inputRef}
                         type="text"
-                        value={task}
+                        value={uppercaseFirstLetter(task)}
                         onChange={(e) => handleChangeTask(e.target.value)}
                     />
                     {edit && (
